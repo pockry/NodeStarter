@@ -41,18 +41,6 @@ module.exports = {
     key: process.env.NYT_KEY || '9548be6f3a64163d23e1539f067fcabd:5:68537648'
   },
 
-  lastfm: {
-    api_key: process.env.LASTFM_KEY || 'c8c0ea1c4a6b199b3429722512fbd17f',
-    secret: process.env.LASTFM_SECRET || 'is cb7857b8fba83f819ea46ca13681fe71'
-  },
-
-  facebook: {
-    clientID: process.env.FACEBOOK_ID || '754220301289665',
-    clientSecret: process.env.FACEBOOK_SECRET || '41860e58c256a3d7ad8267d3c1939a4a',
-    callbackURL: '/auth/facebook/callback',
-    passReqToCallback: true
-  },
-
   instagram: {
     clientID: process.env.INSTAGRAM_ID || '9f5c39ab236a48e0aec354acb77eee9b',
     clientSecret: process.env.INSTAGRAM_SECRET || '5920619aafe842128673e793a1c40028',
@@ -96,10 +84,6 @@ module.exports = {
   twilio: {
     sid: process.env.TWILIO_SID || 'AC6f0edc4c47becc6d0a952536fc9a6025',
     token: process.env.TWILIO_TOKEN || 'a67170ff7afa2df3f4c7d97cd240d0f3'
-  },
-
-  clockwork: {
-    apiKey: process.env.CLOCKWORK_KEY || '9ffb267f88df55762f74ba2f517a66dc8bedac5a'
   },
 
   stripe: {

@@ -102,8 +102,6 @@ node app.js
 | ------------------------------- |:-------------:|
 | async                           | Utility library that provides asynchronous control flow. |
 | bcrypt-nodejs                   | Library for hashing and salting user passwords. |
-| cheerio                         | Scrape web pages using jQuery-style syntax.  |
-| clockwork                       | Clockwork SMS API library. |
 | connect-assets                  | Compiles LESS stylesheets, concatenates & minifies JavaScript. |
 | connect-mongo                   | MongoDB session store for Express. |
 | csso                            | Dependency for connect-assets library to minify CSS. |
@@ -117,11 +115,7 @@ node app.js
 | method-override                 | Express 4.0 middleware. |
 | express-flash                   | Provides flash messages for Express. |
 | express-validator               | Easy form validation for Express. |
-| fbgraph                         | Facebook Graph API library. |
-| github-api                      | GitHub API library. |
 | jade                            | Template engine for Express. |
-| lastfm                          | Last.fm API library. |
-| instagram-node                  | Instagram API library. |
 | less                            | LESS compiler. Used implicitly by connect-assets. |
 | lusca                           | CSRF middleware.        |
 | mongoose                        | MongoDB ODM. |
@@ -129,7 +123,6 @@ node app.js
 | node-linkedin                   | LinkedIn API library. |
 | nodemailer                      | Node.js library for sending emails. |
 | passport                        | Simple and elegant authentication library for node.js |
-| passport-facebook               | Sign-in with Facebook plugin. |
 | passport-github                 | Sign-in with GitHub plugin. |
 | passport-google-oauth           | Sign-in with Google plugin. |
 | passport-twitter                | Sign-in with Twitter plugin. |

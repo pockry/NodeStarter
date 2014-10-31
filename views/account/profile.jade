@@ -83,11 +83,6 @@ block content
   else
     p: a(href='/auth/google') Link your Google account
 
-  if user.facebook
-    p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
-  else
-    p: a(href='/auth/facebook') Link your Facebook account
-
   if user.twitter
     p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
   else

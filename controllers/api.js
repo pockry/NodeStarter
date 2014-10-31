@@ -3,19 +3,13 @@ var User = require('../models/User');
 var querystring = require('querystring');
 var validator = require('validator');
 var async = require('async');
-var cheerio = require('cheerio');
 var request = require('request');
-var graph = require('fbgraph');
-var LastFmNode = require('lastfm').LastFmNode;
 var tumblr = require('tumblr.js');
 var foursquare = require('node-foursquare')({ secrets: secrets.foursquare });
-var Github = require('github-api');
 var Twit = require('twit');
 var stripe =  require('stripe')(secrets.stripe.secretKey);
 var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
 var Linkedin = require('node-linkedin')(secrets.linkedin.clientID, secrets.linkedin.clientSecret, secrets.linkedin.callbackURL);
-var clockwork = require('clockwork')({key: secrets.clockwork.apiKey});
-var ig = require('instagram-node').instagram();
 var Y = require('yui/yql');
 var _ = require('lodash');
 
@@ -88,74 +82,6 @@ exports.getTumblr = function(req, res, next) {
   });
 };
 
-/**
- * GET /api/facebook
- * Facebook API example.
- */
-
-exports.getFacebook = function(req, res, next) {
-  var token = _.find(req.user.tokens, { kind: 'facebook' });
-  graph.setAccessToken(token.accessToken);
-  async.parallel({
-    getMe: function(done) {
-      graph.get(req.user.facebook, function(err, me) {
-        done(err, me);
-      });
-    },
-    getMyFriends: function(done) {
-      graph.get(req.user.facebook + '/friends', function(err, friends) {
-        done(err, friends.data);
-      });
-    }
-  },
-  function(err, results) {
-    if (err) return next(err);
-    res.render('api/facebook', {
-      title: 'Facebook API',
-      me: results.getMe,
-      friends: results.getMyFriends
-    });
-  });
-};
-
-/**
- * GET /api/scraping
- * Web scraping example using Cheerio library.
- */
-
-exports.getScraping = function(req, res, next) {
-  request.get('https://news.ycombinator.com/', function(err, request, body) {
-    if (err) return next(err);
-    var $ = cheerio.load(body);
-    var links = [];
-    $('.title a[href^="http"], a[href^="https"]').each(function() {
-      links.push($(this));
-    });
-    res.render('api/scraping', {
-      title: 'Web Scraping',
-      links: links
-    });
-  });
-};
-
-/**
- * GET /api/github
- * GitHub API Example.
- */
-
-exports.getGithub = function(req, res, next) {
-  var token = _.find(req.user.tokens, { kind: 'github' });
-  var github = new Github({ token: token.accessToken });
-  var repo = github.getRepo('sahat', 'requirejs-library');
-  repo.show(function(err, repo) {
-    if (err) return next(err);
-    res.render('api/github', {
-      title: 'GitHub API',
-      repo: repo
-    });
-  });
-
-};
 
 /**
  * GET /api/aviary
@@ -187,80 +113,7 @@ exports.getNewYorkTimes = function(req, res, next) {
   });
 };
 
-/**
- * GET /api/lastfm
- * Last.fm API example.
- */
 
-exports.getLastfm = function(req, res, next) {
-  var lastfm = new LastFmNode(secrets.lastfm);
-  async.parallel({
-    artistInfo: function(done) {
-      lastfm.request('artist.getInfo', {
-        artist: 'The Pierces',
-        handlers: {
-          success: function(data) {
-            done(null, data);
-          },
-          error: function(err) {
-            done(err);
-          }
-        }
-      });
-    },
-    artistTopTracks: function(done) {
-      lastfm.request('artist.getTopTracks', {
-        artist: 'The Pierces',
-        handlers: {
-          success: function(data) {
-            var tracks = [];
-            _.each(data.toptracks.track, function(track) {
-              tracks.push(track);
-            });
-            done(null, tracks.slice(0,10));
-          },
-          error: function(err) {
-            done(err);
-          }
-        }
-      });
-    },
-    artistTopAlbums: function(done) {
-      lastfm.request('artist.getTopAlbums', {
-        artist: 'The Pierces',
-        handlers: {
-          success: function(data) {
-            var albums = [];
-            _.each(data.topalbums.album, function(album) {
-              albums.push(album.image.slice(-1)[0]['#text']);
-            });
-            done(null, albums.slice(0, 4));
-          },
-          error: function(err) {
-            done(err);
-          }
-        }
-      });
-    }
-  },
-  function(err, results) {
-    if (err) return next(err.message);
-    var artist = {
-      name: results.artistInfo.artist.name,
-      image: results.artistInfo.artist.image.slice(-1)[0]['#text'],
-      tags: results.artistInfo.artist.tags.tag,
-      bio: results.artistInfo.artist.bio.summary,
-      stats: results.artistInfo.artist.stats,
-      similar: results.artistInfo.artist.similar.artist,
-      topAlbums: results.artistTopAlbums,
-      topTracks: results.artistTopTracks
-    };
-    res.render('api/lastfm', {
-      title: 'Last.fm API',
-      artist: artist
-    });
-  });
-};
 
 /**
  * GET /api/twitter
@@ -427,34 +280,8 @@ exports.postTwilio = function(req, res, next) {
   });
 };
 
-/**
- * GET /api/clockwork
- * Clockwork SMS API example.
- */
 
-exports.getClockwork = function(req, res) {
-  res.render('api/clockwork', {
-    title: 'Clockwork SMS API'
-  });
-};
 
-/**
- * POST /api/clockwork
- * Send a text message using Clockwork SMS
- */
-
-exports.postClockwork = function(req, res, next) {
-  var message = {
-    To: req.body.telephone,
-    From: 'Hackathon',
-    Content: 'Hello from the Hackathon Starter'
-  };
-  clockwork.sendSms(message, function(err, responseData) {
-    if (err) return next(err.errDesc);
-    req.flash('success', { msg: 'Text sent to ' + responseData.responses[0].to });
-    res.redirect('/api/clockwork');
-  });
-};
 
 /**
  * GET /api/venmo

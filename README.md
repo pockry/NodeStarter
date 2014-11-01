@@ -58,9 +58,9 @@ The easiest way to get started is to clone the repository:
 
 ```bash
 # Get the latest snapshot
-git clone --depth=1 https://github.com/sahat/hackathon-starter.git myproject
+git clone --depth=1 https://github.com/pockry/NodeStarter.git nodestarter
 
-cd myproject
+cd nodestarter
 
 # Install NPM dependencies
 npm install
@@ -119,21 +119,12 @@ node app.js
 | less                            | LESS compiler. Used implicitly by connect-assets. |
 | lusca                           | CSRF middleware.        |
 | mongoose                        | MongoDB ODM. |
-| node-foursquare                 | Foursquare API library. |
-| node-linkedin                   | LinkedIn API library. |
 | nodemailer                      | Node.js library for sending emails. |
 | passport                        | Simple and elegant authentication library for node.js |
-| passport-github                 | Sign-in with GitHub plugin. |
-| passport-google-oauth           | Sign-in with Google plugin. |
 | passport-twitter                | Sign-in with Twitter plugin. |
-| passport-instagram              | Sign-in with Instagram plugin. |
 | passport-local                  | Sign-in with Username and Password plugin. |
-| passport-linkedin-oauth2        | Sign-in with LinkedIn plugin. |
 | passport-oauth                  | Allows you to set up your own OAuth 1.0a and OAuth 2.0 strategies. |
 | request                         | Simplified HTTP request library. |
-| stripe                          | Offical Stripe API library. |
-| tumblr.js                       | Tumblr API library. |
-| twilio                          | Twilio API library. |
 | twit                            | Twitter API library. |
 | lodash                          | Handy JavaScript utlities library. |
 | uglify-js                       | Dependency for connect-assets library to minify JS. |
@@ -141,9 +132,6 @@ node app.js
 | mocha                           | Test framework. |
 | chai                            | BDD/TDD assertion library. |
 | supertest                       | HTTP assertion library. |
-| multiline                       | Multi-line strings for the generator. |
-| blessed                         | Interactive command line interface for the generator. |
-| yui                             | Used by the Yahoo API example. |
 
 
 FAQ or 教程

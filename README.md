@@ -123,7 +123,6 @@ node app.js
 | passport                        | Simple and elegant authentication library for node.js |
 | passport-twitter                | Sign-in with Twitter plugin. |
 | passport-local                  | Sign-in with Username and Password plugin. |
-| passport-oauth                  | Allows you to set up your own OAuth 1.0a and OAuth 2.0 strategies. |
 | request                         | Simplified HTTP request library. |
 | twit                            | Twitter API library. |
 | lodash                          | Handy JavaScript utlities library. |

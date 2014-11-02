@@ -2,7 +2,6 @@ var secrets = require('../config/secrets');
 var User = require('../models/User');
 var querystring = require('querystring');
 var validator = require('validator');
-var async = require('async');
 var request = require('request');
 var Twit = require('twit');
 var _ = require('lodash');

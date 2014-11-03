@@ -14,7 +14,7 @@ var secrets = require('../config/secrets');
 exports.getLogin = function(req, res) {
   if (req.user) return res.redirect('/');
   res.render('account/login', {
-    title: 'Login'
+    title: '登录'
   });
 };
 
@@ -26,8 +26,8 @@ exports.getLogin = function(req, res) {
  */
 
 exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
+  req.assert('email', '邮箱格式不正确').isEmail();
+  req.assert('password', '密码不能为空').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -44,7 +44,7 @@ exports.postLogin = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Success! You are logged in.' });
+      req.flash('success', { msg: '登录成功！' });
       res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
@@ -68,7 +68,7 @@ exports.logout = function(req, res) {
 exports.getSignup = function(req, res) {
   if (req.user) return res.redirect('/');
   res.render('account/signup', {
-    title: 'Create Account'
+    title: '注册'
   });
 };
 
@@ -80,9 +80,9 @@ exports.getSignup = function(req, res) {
  */
 
 exports.postSignup = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('email', '邮箱格式不正确').isEmail();
+  req.assert('password', '密码最少要6位').len(6);
+  req.assert('confirmPassword', '密码不匹配').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -98,7 +98,7 @@ exports.postSignup = function(req, res, next) {
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      req.flash('errors', { msg: '您输入的邮箱已存在。' });
       return res.redirect('/signup');
     }
     user.save(function(err) {
@@ -118,7 +118,7 @@ exports.postSignup = function(req, res, next) {
 
 exports.getAccount = function(req, res) {
   res.render('account/profile', {
-    title: 'Account Management'
+    title: '账号设置'
   });
 };
 
@@ -138,7 +138,7 @@ exports.postUpdateProfile = function(req, res, next) {
 
     user.save(function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Profile information updated.' });
+      req.flash('success', { msg: '账号资料更新成功。' });
       res.redirect('/account');
     });
   });
@@ -151,8 +151,8 @@ exports.postUpdateProfile = function(req, res, next) {
  */
 
 exports.postUpdatePassword = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req.assert('password', '密码最少要6位').len(6);
+  req.assert('confirmPassword', '密码不匹配').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -168,7 +168,7 @@ exports.postUpdatePassword = function(req, res, next) {
 
     user.save(function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Password has been changed.' });
+      req.flash('success', { msg: '密码修改成功。' });
       res.redirect('/account');
     });
   });
@@ -183,7 +183,7 @@ exports.postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
     if (err) return next(err);
     req.logout();
-    req.flash('info', { msg: 'Your account has been deleted.' });
+    req.flash('info', { msg: '你的账号已被删除。' });
     res.redirect('/');
   });
 };
@@ -204,7 +204,7 @@ exports.getOauthUnlink = function(req, res, next) {
 
     user.save(function(err) {
       if (err) return next(err);
-      req.flash('info', { msg: provider + ' account has been unlinked.' });
+      req.flash('info', { msg: provider + ' 账号已解除绑定。' });
       res.redirect('/account');
     });
   });
@@ -224,7 +224,7 @@ exports.getReset = function(req, res) {
     .where('resetPasswordExpires').gt(Date.now())
     .exec(function(err, user) {
       if (!user) {
-        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+        req.flash('errors', { msg: '重置密码链接不正确或已过期。' });
         return res.redirect('/forgot');
       }
       res.render('account/reset', {
@@ -240,8 +240,8 @@ exports.getReset = function(req, res) {
  */
 
 exports.postReset = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long.').len(4);
-  req.assert('confirm', 'Passwords must match.').equals(req.body.password);
+  req.assert('password', '密码最少要6位。').len(6);
+  req.assert('confirm', '密码不匹配。').equals(req.body.password);
 
   var errors = req.validationErrors();
 
@@ -257,7 +257,7 @@ exports.postReset = function(req, res, next) {
         .where('resetPasswordExpires').gt(Date.now())
         .exec(function(err, user) {
           if (!user) {
-            req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+            req.flash('errors', { msg: '重置密码链接不正确或已过期。' });
             return res.redirect('back');
           }
 
@@ -320,7 +320,7 @@ exports.getForgot = function(req, res) {
  */
 
 exports.postForgot = function(req, res, next) {
-  req.assert('email', 'Please enter a valid email address.').isEmail();
+  req.assert('email', '输入的邮箱格式不正确。').isEmail();
 
   var errors = req.validationErrors();
 
@@ -339,7 +339,7 @@ exports.postForgot = function(req, res, next) {
     function(token, done) {
       User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
         if (!user) {
-          req.flash('errors', { msg: 'No account with that email address exists.' });
+          req.flash('errors', { msg: '您输入的邮箱未注册。' });
           return res.redirect('/forgot');
         }
 

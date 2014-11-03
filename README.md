@@ -11,14 +11,12 @@ Node Starter
 
 working
 
-主要内容
+内容目录
 -----------------
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Generator](#generator)
-- [Obtaining API Keys](#obtaining-api-keys)
+- [特性](#features)
+- [环境依赖](#prerequisites)
+- [安装](#getting-started)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
 - [Useful Tools and Resources](#useful-tools-and-resources)
@@ -37,14 +35,19 @@ working
 特性
 --------
 
-working
+* 使用express 4.x和connect 3.x
+* 使用Mongoose简化数据库开发
+* 采用MVC项目结构，提供示例可快速开发
+* 生产环境可自动压缩合并js、css文件
+* 一个基本完善的用户系统，包括注册、登录、找回密码、账号设置、第三方账号登录（账号绑定）等流程。
 
 环境依赖
 -------------
 
+在使用本项目前，你需要先安装下面的环境和工具：
 - [MongoDB](http://www.mongodb.org/downloads)
 - [Node.js](http://nodejs.org)
-- Command Line Tools
+- 命令行工具
  - **Mac OS X**: [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) (or **OS X 10.9 Mavericks**: `xcode-select --install`)
  - **Windows**: [Visual Studio](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-express-windows-8)
  - **Ubuntu**: `sudo apt-get install build-essential`

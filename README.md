@@ -3,9 +3,9 @@ Node Starter
 
 **在线Demo**: working
 
-一个面向Nodejs开发新手准备的模板项目，为国内网络环境优化。
+一个面向Nodejs开发者准备的样板项目，为国内网络环境优化。
 
-基于sahat的Hackathon Starter修改而成。
+基于[sahat](https://github.com/sahat)的[Hackathon Starter](https://github.com/sahat/hackathon-starter)修改而成。
 
 ###界面展示
 
@@ -15,8 +15,9 @@ working
 -----------------
 
 - [特性](#features)
+- [与Hackathon Starter的不同](#diff-from-hs)
 - [环境依赖](#prerequisites)
-- [安装](#getting-started)
+- [安装](#Install)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
 - [Useful Tools and Resources](#useful-tools-and-resources)
@@ -42,6 +43,25 @@ working
 * 一个基本完善的用户系统，包括注册、登录、找回密码、账号设置等流程
 * 提供第三方账号登录、账号绑定功能示例（以新浪微博为例）
 
+与Hackathon Starter的不同
+--------
+
+首先必须要感谢sahat的杰出工作，产生了Hackathon Starter这样绝赞的项目。
+
+我的Nodejs真正入门就是靠对Hackathon Starter的实践和学习一步步开始的，向sahat致敬！
+
+遵循开源的获取与回馈的精神，我也想为社区做一些贡献。我很认同HS中的一些理念比如简单、易用、可复用，但另一些则不太认同，特别是HS中的一些第三方服务相关的部分并不适合国内网络环境，因此我产生了为国内的Nodejs开发者打造一个量身定做的样板项目的想法，这就是NodeStarter。
+
+如果说Hackathon Starter的目标是为Hackathon这样的环境快速开发而打造的话，NodeStarter则更注重**学习起步**和**快速开发**，无需再纠缠于烦人的模块版本、初始设置，直接进行业务的开发。另外，增强对生产环境的支持，让NodeStarter开发的项目能直接用于部署！
+
+与Hackathon Starter具体的差异：
+
+* 去掉facebook等国外网站和服务的第三方登录/API调用，增加微博等的第三方登录
+* 去掉在contact页面直接发送邮件的功能
+* 添加表单的前端验证，基于bootstrap3-validate
+
+如果你想学习国外网站和服务的登录和API调用，可直接前往Hackathon Starter！
+
 环境依赖
 -------------
 
@@ -55,95 +75,51 @@ working
  - **Fedora**: `sudo yum groupinstall "Development Tools"`
  - **OpenSUSE**: `sudo zypper install --type pattern devel_basis`
 
-安装使用
+安装
 ---------------
 
-The easiest way to get started is to clone the repository:
+如果已安装git(linux和OS X中是系统自带的)，进入命令行输入以下命令：
 
 ```bash
-# Get the latest snapshot
-git clone --depth=1 https://github.com/pockry/NodeStarter.git nodestarter
+>git clone --depth=1 https://github.com/pockry/NodeStarter.git nodestarter
 
-cd nodestarter
+>cd nodestarter
 
-# Install NPM dependencies
-npm install
+>npm install
 
-node app.js
+npm start
 ```
+
+当然你也可以下载本项目最新代码zip文件来取代git这一步，后面几步是一样的。
+
+完成上述步骤后，可以上  http://localhost:3000/ 来验证是否安装成功。
+
+> **注意**：由于国内网络原因，可能在`npm install`时失败，多重复几次这个命令即可（注意使用`npm cache clean`清除缓存），或者使用npm镜像来安装依赖。
+
 
 项目结构
 -----------------
 
-| Name                               | Description                                                 |
-| ---------------------------------- |:-----------------------------------------------------------:|
-| **config**/passport.js             | Passport Local and OAuth strategies, plus login middleware. |
-| **config**/secrets.js              | Your API keys, tokens, passwords and database URL.          |
-| **controllers**/api.js             | Controller for /api route and all api examples.             |
-| **controllers**/contact.js         | Controller for contact form.                                |
-| **controllers**/home.js            | Controller for home page (index).                           |
-| **controllers**/user.js            | Controller for user account management.                     |
-| **models**/User.js                 | Mongoose schema and model for User.                         |
-| **public**/                        | Static assets (fonts, css, js, img).                        |
-| **public**/**js**/application.js   | Specify client-side JavaScript dependencies.                |
-| **public**/**js**/main.js          | Place your client-side JavaScript here.                     |
-| **public**/**css**/styles.less     | Main stylesheet for your app.                               |
-| **public/css/themes**/default.less | Some Bootstrap overrides to make it look prettier.          |
-| **views/account**/                 | Templates for *login, password reset, signup, profile*.     |
-| **views/api**/                     | Templates for API Examples.                                 |
-| **views/partials**/flash.jade      | Error, info and success flash notifications.                |
-| **views/partials**/navigation.jade | Navbar partial template.                                    |
-| **views/partials**/footer.jade     | Footer partial template.                                    |
-| **views**/layout.jade              | Base template.                                              |
-| **views**/home.jade                | Home page template.                                         |
-| app.js                             | Main application file.                                      |
+```
+app.js             // 项目入口，也是整个项目的心脏，包括express设置、route等
+package.json       // 依赖模块清单
+config/            // 项目设置，包括secrets和passport
+controllers/       // 视图控制器
+models/            // 数据模型，使用mongoose简化数据库开发
+public/            // 静态文件目录，包括样式文件和前端js
+views/             // 总视图目录
+test/              // 项目测试
+```
 
 
-模块列表
-----------------
-
-| Package                         | Description   |
-| ------------------------------- |:-------------:|
-| async                           | Utility library that provides asynchronous control flow. |
-| bcrypt-nodejs                   | Library for hashing and salting user passwords. |
-| connect-assets                  | Compiles LESS stylesheets, concatenates & minifies JavaScript. |
-| connect-mongo                   | MongoDB session store for Express. |
-| csso                            | Dependency for connect-assets library to minify CSS. |
-| express                         | Node.js web framework. |
-| body-parser                     | Express 4.0 middleware. |
-| cookie-parser                   | Express 4.0 middleware. |
-| express-session                 | Express 4.0 middleware. |
-| morgan                          | Express 4.0 middleware. |
-| compression                     | Express 4.0 middleware. |
-| errorhandler                    | Express 4.0 middleware. |
-| method-override                 | Express 4.0 middleware. |
-| express-flash                   | Provides flash messages for Express. |
-| express-validator               | Easy form validation for Express. |
-| jade                            | Template engine for Express. |
-| less                            | LESS compiler. Used implicitly by connect-assets. |
-| lusca                           | CSRF middleware.        |
-| mongoose                        | MongoDB ODM. |
-| nodemailer                      | Node.js library for sending emails. |
-| passport                        | Simple and elegant authentication library for node.js |
-| passport-twitter                | Sign-in with Twitter plugin. |
-| passport-local                  | Sign-in with Username and Password plugin. |
-| request                         | Simplified HTTP request library. |
-| twit                            | Twitter API library. |
-| lodash                          | Handy JavaScript utlities library. |
-| uglify-js                       | Dependency for connect-assets library to minify JS. |
-| validator                       | Used in conjunction with express-validator in **controllers/api.js**. |
-| mocha                           | Test framework. |
-| chai                            | BDD/TDD assertion library. |
-| supertest                       | HTTP assertion library. |
-
-
-FAQ or 教程
+快速上手
 ---
 
 working
 
 部署
 ----------
+
 working
 
 License

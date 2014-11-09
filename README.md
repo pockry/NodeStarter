@@ -17,20 +17,14 @@ working
 - [特性](#features)
 - [与Hackathon Starter的不同](#diff-from-hs)
 - [环境依赖](#prerequisites)
-- [安装](#Install)
-- [Project Structure](#project-structure)
-- [List of Packages](#list-of-packages)
-- [Useful Tools and Resources](#useful-tools-and-resources)
-- [Recommended Design Resources](#recommended-design-resources)
-- [Recommended Node.js Libraries](#recommended-nodejs-libraries)
-- [Recommended Client-side Libraries](#recommended-client-side-libraries)
-- [Pro Tips](#pro-tips)
+- [安装](#install)
+- [项目结构](#project-structure)
+- [快速上手](#getting-started)
+- [教程](#resource)
 - [FAQ](#faq)
-- [How It Works](#how-it-works-mini-guides)
-- [Mongoose Cheatsheet](#mongoose-cheatsheet)
-- [Deployment](#deployment)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
+- [部署](#deployment)
+- [更新日志](#changelog)
+- [贡献者](#contributing)
 - [License](#license)
 
 特性
@@ -50,17 +44,21 @@ working
 
 我的Nodejs真正入门就是靠对Hackathon Starter的实践和学习一步步开始的，向sahat致敬！
 
-遵循开源的获取与回馈的精神，我也想为社区做一些贡献。我很认同HS中的一些理念比如简单、易用、可复用，但另一些则不太认同，特别是HS中的一些第三方服务相关的部分并不适合国内网络环境，因此我产生了为国内的Nodejs开发者打造一个量身定做的样板项目的想法，这就是NodeStarter。
+遵循开源的获取与回馈的精神，我也想为社区做一些贡献。我很认同HS中的一些理念比如**简单**、**易用**、**可复用**，但另一些则不太认同，特别是HS中的一些第三方服务相关的部分并不适合国内网络环境，因此我产生了为国内的Nodejs开发者打造一个量身定做的样板项目的想法，这就是NodeStarter。
 
-如果说Hackathon Starter的目标是为Hackathon这样的环境快速开发而打造的话，NodeStarter则更注重**学习起步**和**快速开发**，无需再纠缠于烦人的模块版本、初始设置，直接进行业务的开发。另外，增强对生产环境的支持，让NodeStarter开发的项目能直接用于部署！
+如果说Hackathon Starter的目标是为Hackathon这样的场景而打造的话，NodeStarter则更注重**学习起步**和**快速开发**，无需再纠缠于烦人的模块版本、初始设置，直接进行业务的开发。另外，增强对生产环境的支持，让NodeStarter开发的项目能直接用于部署！
 
 与Hackathon Starter具体的差异：
 
-* 去掉facebook等国外网站和服务的第三方登录/API调用，增加微博等的第三方登录
+* 去掉facebook等国外网站和服务的第三方登录/API调用，增加微博等的第三方登录（TO DO）
 * 去掉在contact页面直接发送邮件的功能
-* 添加表单的前端验证，基于bootstrap3-validate
+* 添加表单的前端验证，基于bootstrap3-validate（TO DO）
+* 添加验证码（TO DO）
+* 优化用户系统，添加用户组（TO DO）
+* 添加在线安装，类似于WordPress（TO DO）
+* 添加管理后台，包括功能开关、用户管理（TO DO）
 
-如果你想学习国外网站和服务的登录和API调用，可直接前往Hackathon Starter！
+如果你想学习国外网站和服务的登录和API调用，可前往[Hackathon Starter](https://github.com/sahat/hackathon-starter)查看相关源码。
 
 环境依赖
 -------------
@@ -81,18 +79,18 @@ working
 如果已安装git(linux和OS X中是系统自带的)，进入命令行输入以下命令：
 
 ```bash
->git clone --depth=1 https://github.com/pockry/NodeStarter.git nodestarter
+git clone --depth=1 https://github.com/pockry/NodeStarter.git nodestarter
 
->cd nodestarter
+cd nodestarter
 
->npm install
+npm install
 
 npm start
 ```
 
 当然你也可以下载本项目最新代码zip文件来取代git这一步，后面几步是一样的。
 
-完成上述步骤后，可以上  http://localhost:3000/ 来验证是否安装成功。
+完成上述步骤后，在浏览器输入 http://localhost:3000/ 来验证是否安装成功。
 
 > **注意**：由于国内网络原因，可能在`npm install`时失败，多重复几次这个命令即可（注意使用`npm cache clean`清除缓存），或者使用npm镜像来安装依赖。
 
@@ -105,7 +103,7 @@ app.js             // 项目入口，也是整个项目的心脏，包括express
 package.json       // 依赖模块清单
 config/            // 项目设置，包括secrets和passport
 controllers/       // 视图控制器
-models/            // 数据模型，使用mongoose简化数据库开发
+models/            // mongoose的数据模型
 public/            // 静态文件目录，包括样式文件和前端js
 views/             // 总视图目录
 test/              // 项目测试
@@ -117,10 +115,32 @@ test/              // 项目测试
 
 working
 
+教程
+------
+
+这里列出对项目有用的一些教程。
+Node School
+Node包教不包会
+
 部署
 ----------
 
 working
+
+FAQ
+------
+
+working
+
+更新日志
+-------
+
+working
+
+贡献者
+-----
+
+这里将列出本项目的贡献者。欢迎pull request。
 
 License
 -------

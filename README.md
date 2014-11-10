@@ -3,7 +3,7 @@ Node Starter
 
 **在线Demo**: working
 
-一个面向Nodejs开发者准备的样板项目，为国内网络环境优化。
+一个面向Nodejs开发者准备的样板项目，为中文网络环境优化。
 
 基于[sahat](https://github.com/sahat)的[Hackathon Starter](https://github.com/sahat/hackathon-starter)修改而成。
 
@@ -50,7 +50,7 @@ working
 
 与Hackathon Starter具体的差异：
 
-* 去掉facebook等国外网站和服务的第三方登录/API调用，增加微博等的第三方登录（TO DO）
+* 去掉facebook等国外网站和服务的第三方登录/API示例，增加微博等的第三方登录（TO DO）
 * 去掉在contact页面直接发送邮件的功能
 * 添加表单的前端验证，基于bootstrap3-validate（TO DO）
 * 添加验证码（TO DO）

@@ -4,6 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var User = require('../models/User');
 var secrets = require('./secrets');
+var WeiboStrategy = require('passport-sina');
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -31,21 +32,38 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 }));
 
 /**
- * OAuth Strategy Overview
- *
- * - User is already logged in.
- *   - Check if there is an existing account with a <provider> id.
- *     - If there is, return an error message. (Account merging not supported)
- *     - Else link new OAuth account with currently logged-in user.
- * - User is not logged in.
- *   - Check if it's a returning user.
- *     - If returning user, sign in and we are done.
- *     - Else check if there is an existing account with user's email.
- *       - If there is, return an error message.
- *       - Else create a new account.
+ * OAuth验证策略概述
+ * 
+ * 当用户点击“使用XX登录”链接
+ * - 若用户已登录
+ *   - 检查该用户是否已绑定XX服务
+ *     - 如果已绑定，返回错误（不允许账户合并）
+ *     - 否则开始验证流程，为该用户绑定XX服务
+ * - 用户未登录
+ *   - 检查是否老用户
+ *     - 如果是老用户，则登录
+ *     - 否则检查OAuth返回profile中的email，是否在用户数据库中存在
+ *       - 如果存在，返回错误信息
+ *       - 否则创建一个新账号
  */
 
-// Sign in with Twitter.
+// 微博第三方登录.
+
+passport.use(new WeiboStrategy({
+    clientID: 'your app key here'
+  , clientSecret: 'your app secret here'
+  , callbackURL: 'auth/weibo/callback'
+  , passReqToCallback: true
+//  , requireState: true // for csrf, default: true
+//  , scope: ['statuses_to_me_read'
+//          , 'follow_app_official_microblog']
+},
+function(req, accessToken, refreshToken, profile, callback) {
+    // verify
+    if(req.user) {
+      User.findOne()
+    }
+}));
 
 passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tokenSecret, profile, done) {
   if (req.user) {

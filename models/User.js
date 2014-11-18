@@ -6,8 +6,11 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
 
-  twitter: String,
-  tokens: Array,
+  thirdParty:[{
+    provider: { type: String, default: '' },
+    profileId: { type: String, default: '' },
+    accessToken: { type: String, default: '' }
+  }],
 
   profile: {
     name: { type: String, default: '' },

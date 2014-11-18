@@ -50,19 +50,35 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 // 微博第三方登录.
 
 passport.use(new WeiboStrategy({
-    clientID: 'your app key here'
-  , clientSecret: 'your app secret here'
-  , callbackURL: 'auth/weibo/callback'
-  , passReqToCallback: true
+    clientID: 'app key'
+  , clientSecret: 'app secret'
+  , callbackURL: 'weibo/callback'
 //  , requireState: true // for csrf, default: true
 //  , scope: ['statuses_to_me_read'
 //          , 'follow_app_official_microblog']
 },
-function(req, accessToken, refreshToken, profile, callback) {
+function(accessToken, refreshToken, profile, done) {
+	console.log(profile);
     // verify
-    if(req.user) {
-      User.findOne()
-    }
+    User.findOne({weibo: profile.id}, function(err, user) {
+    	if(user) {
+    		//如有该用户则直接登录
+    		for(var i=0;i< user.thirdParty.length;i++) {
+    			if(user.thirdParty[i].provider === "weibo") {
+    				user.thirdParty[i].accessToken = accessToken;
+    			}
+    		}
+    		user.save(function(err) {
+    			req.flash('info', { msg: '成功使用微博登录。' });
+    			done(err, user);
+    		});
+    	} else {
+    		// 若无该用户则创建用户
+    		user = new User();
+    		
+    		
+    	}
+    });
 }));
 
 passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tokenSecret, profile, done) {

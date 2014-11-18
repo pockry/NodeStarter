@@ -5,11 +5,12 @@ var crypto = require('crypto');
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
-
+  weibo: String,
+  qq: String,
   thirdParty:[{
     provider: { type: String, default: '' },
-    profileId: { type: String, default: '' },
-    accessToken: { type: String, default: '' }
+    accessToken: { type: String, default: '' },
+    tokenSecret: { type: String, default: '' }
   }],
 
   profile: {

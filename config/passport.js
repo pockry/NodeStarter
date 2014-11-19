@@ -50,17 +50,19 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 // 微博第三方登录.
 
 passport.use(new WeiboStrategy({
-    clientID: 'app key'
-  , clientSecret: 'app secret'
-  , callbackURL: 'weibo/callback'
+    clientID: '3439067312'
+  , clientSecret: '6788d4997d661db7a26b99ea5c03aa46'
+  , callbackURL: 'http://127.0.0.1:3000/auth/weibo/callback'
+  , passReqToCallback: true
 //  , requireState: true // for csrf, default: true
 //  , scope: ['statuses_to_me_read'
 //          , 'follow_app_official_microblog']
 },
-function(accessToken, refreshToken, profile, done) {
-	console.log(profile);
+function(req, accessToken, refreshToken, profile, done) {
+    conslog.log("hhhh");
     // verify
     User.findOne({weibo: profile.id}, function(err, user) {
+      if(err) return done(err);
     	if(user) {
     		//如有该用户则直接登录
     		for(var i=0;i< user.thirdParty.length;i++) {
@@ -70,13 +72,20 @@ function(accessToken, refreshToken, profile, done) {
     		}
     		user.save(function(err) {
     			req.flash('info', { msg: '成功使用微博登录。' });
-    			done(err, user);
+    			return done(err, user);
     		});
     	} else {
     		// 若无该用户则创建用户
     		user = new User();
-    		
-    		
+        user.email = profile.name + "@weibo.com";
+    		user.weibo = profile.id;
+        user.profile.name = profile.name;
+        user.profile.picture = profile.profile_image_url;
+        user.thirdParty.push({ provider: 'weibo', accessToken: accessToken, tokenSecret: refreshToken });
+    		user.save(function(err) {
+            req.flash('info', { msg: '欢迎使用微博登录。' });
+            return done(err, user);
+          });
     	}
     });
 }));

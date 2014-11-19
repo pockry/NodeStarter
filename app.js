@@ -138,7 +138,7 @@ app.post('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized
  */
 
 app.get('/auth/weibo', passport.authenticate('sina'));
-app.get('/auth/weibo/callback', passport.authenticate('sina', { failureRedirect: '/login' }), function(req, res) {
+app.get('/auth/weibo/callback', passport.authenticate('sina', { failureRedirect:'/login',failureFlash: true }), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
 

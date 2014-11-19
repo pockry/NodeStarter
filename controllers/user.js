@@ -13,6 +13,7 @@ var secrets = require('../config/secrets');
 
 exports.getLogin = function(req, res) {
   if (req.user) return res.redirect('/');
+  req.flash('errors');
   res.render('account/login', {
     title: '登录'
   });

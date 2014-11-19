@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var TwitterStrategy = require('passport-twitter').Strategy;
 var User = require('../models/User');
 var secrets = require('./secrets');
 var WeiboStrategy = require('passport-sina');
@@ -49,17 +48,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, passw
 
 // 微博第三方登录.
 
-passport.use(new WeiboStrategy({
-    clientID: '3439067312'
-  , clientSecret: '6788d4997d661db7a26b99ea5c03aa46'
-  , callbackURL: 'http://127.0.0.1:3000/auth/weibo/callback'
-  , passReqToCallback: true
-//  , requireState: true // for csrf, default: true
-//  , scope: ['statuses_to_me_read'
-//          , 'follow_app_official_microblog']
-},
-function(req, accessToken, refreshToken, profile, done) {
-    conslog.log("hhhh");
+passport.use(new WeiboStrategy(secrets.weibo, function(req, accessToken, refreshToken, profile, done) {
+    
     // verify
     User.findOne({weibo: profile.id}, function(err, user) {
       if(err) return done(err);
@@ -90,46 +80,7 @@ function(req, accessToken, refreshToken, profile, done) {
     });
 }));
 
-passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tokenSecret, profile, done) {
-  if (req.user) {
-    User.findOne({ twitter: profile.id }, function(err, existingUser) {
-      if (existingUser) {
-        req.flash('errors', { msg: 'There is already a Twitter account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err);
-      } else {
-        User.findById(req.user.id, function(err, user) {
-          user.twitter = profile.id;
-          user.tokens.push({ kind: 'twitter', accessToken: accessToken, tokenSecret: tokenSecret });
-          user.profile.name = user.profile.name || profile.displayName;
-          user.profile.location = user.profile.location || profile._json.location;
-          user.profile.picture = user.profile.picture || profile._json.profile_image_url_https;
-          user.save(function(err) {
-            req.flash('info', { msg: 'Twitter account has been linked.' });
-            done(err, user);
-          });
-        });
-      }
-    });
 
-  } else {
-    User.findOne({ twitter: profile.id }, function(err, existingUser) {
-      if (existingUser) return done(null, existingUser);
-      var user = new User();
-      // Twitter will not provide an email address.  Period.
-      // But a person’s twitter username is guaranteed to be unique
-      // so we can "fake" a twitter email address as follows:
-      user.email = profile.username + "@twitter.com";
-      user.twitter = profile.id;
-      user.tokens.push({ kind: 'twitter', accessToken: accessToken, tokenSecret: tokenSecret });
-      user.profile.name = profile.displayName;
-      user.profile.location = profile._json.location;
-      user.profile.picture = profile._json.profile_image_url_https;
-      user.save(function(err) {
-        done(err, user);
-      });
-    });
-  }
-}));
 
 // Login Required middleware.
 

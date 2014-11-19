@@ -40,18 +40,16 @@ working
 与Hackathon Starter的不同
 --------
 
-首先必须要感谢sahat的杰出工作，产生了Hackathon Starter这样绝赞的项目。
+首先必须要感谢sahat的杰出工作，产生了Hackathon Starter这样极好的项目，向sahat致敬！
 
-我的Nodejs真正入门就是靠对Hackathon Starter的实践和学习一步步开始的，向sahat致敬！
+我从Hackathon Starter中获益良多，遵循开源的获取与回馈的精神，我也想为社区做一些贡献。我很认同HS中的一些理念比如**简单**、**易用**、**可复用**，但另一些则不太认同，特别是HS中的一些第三方服务相关的部分并不适合国内网络环境，因此我产生了为国内的Nodejs开发者打造一个量身定做的样板项目的想法，这就是NodeStarter。
 
-遵循开源的获取与回馈的精神，我也想为社区做一些贡献。我很认同HS中的一些理念比如**简单**、**易用**、**可复用**，但另一些则不太认同，特别是HS中的一些第三方服务相关的部分并不适合国内网络环境，因此我产生了为国内的Nodejs开发者打造一个量身定做的样板项目的想法，这就是NodeStarter。
-
-如果说Hackathon Starter的目标是为Hackathon这样的场景而打造的话，NodeStarter则更注重**学习起步**和**快速开发**，无需再纠缠于烦人的模块版本、初始设置，直接进行业务的开发。另外，增强对生产环境的支持，让NodeStarter开发的项目能直接用于部署！
+如果说Hackathon Starter的目标是为Hackathon这样的场景而打造的话，NodeStarter则更注重**学习起步**和**快速开发**，无需再纠缠于烦人的模块版本、初始设置，直接进行业务的开发。另外，增强对部署的支持，让NodeStarter开发的项目能直接用于生产项目！
 
 与Hackathon Starter具体的差异：
 
-* 去掉facebook等国外网站和服务的第三方登录/API示例，增加微博等的第三方登录（TO DO）
-* 去掉在contact页面直接发送邮件的功能
+* 去掉facebook等国外网站和服务的第三方登录/API示例，增加微博等的第三方登录（done）
+* 去掉在contact页面直接发送邮件的功能（done）
 * 添加表单的前端验证，基于bootstrap3-validate（TO DO）
 * 添加验证码（TO DO）
 * 优化用户系统，添加用户组（TO DO）
@@ -119,8 +117,9 @@ working
 ------
 
 这里列出对项目有用的一些教程。
-Node School
-Node包教不包会
+
+* Node School
+* Node包教不包会
 
 部署
 ----------

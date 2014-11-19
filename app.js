@@ -27,7 +27,6 @@ var connectAssets = require('connect-assets');
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
-var apiController = require('./controllers/api');
 
 /**
  * API keys and Passport configuration.
@@ -126,25 +125,11 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 
 /**
- * API examples routes.
- */
-
-app.get('/api', apiController.getApi);
-app.get('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getTwitter);
-app.post('/api/twitter', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.postTwitter);
-
-/**
  * OAuth sign-in routes.
  */
 
 app.get('/auth/weibo', passport.authenticate('sina'));
-app.get('/auth/weibo/callback', passport.authenticate('sina', { failureRedirect:'/login',failureFlash: true }), function(req, res) {
-  res.redirect(req.session.returnTo || '/');
-});
-
-
-app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function(req, res) {
+app.get('/auth/weibo/callback', passport.authenticate('sina', { failureRedirect:'/login',failureFlash: "授权失败，请重新登录。"}), function(req, res) {
   res.redirect(req.session.returnTo || '/');
 });
 

@@ -73,7 +73,7 @@ block content
   .page-header
     h3 Linked Accounts
 
-  if user.twitter
-    p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
+  if user.weibo
+    p: a.text-danger(href='/account/unlink/weibo') 解除微博绑定
   else
-    p: a(href='/auth/twitter') Link your Twitter account
+    p: a(href='/auth/weibo') 绑定微博账号

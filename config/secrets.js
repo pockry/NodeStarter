@@ -1,12 +1,9 @@
 /**
- * IMPORTANT * IMPORTANT * IMPORTANT * IMPORTANT * IMPORTANT * IMPORTANT *
+ * 重要信息 * 重要信息 * 重要信息 * 重要信息 * 重要信息 * 重要信息 *
  *
- * You should never commit this file to a public repository on GitHub!
- * All public code on GitHub can be searched, that means anyone can see your
- * uploaded secrets.js file.
+ * 本文件包含你的个人隐私和财产，不要将本文件上传到网站或公开的git仓库！
  *
- * I did it for your convenience using "throw away" credentials so that
- * all features could work out of the box.
+ * 下面的初始化信息如需用于生产环境，请务必修改后使用。
  *
  * Untrack secrets.js before pushing your code to public GitHub repository:
  *
@@ -32,10 +29,13 @@ module.exports = {
     password: process.env.SENDGRID_PASSWORD || 'password'
   },
 
-  twitter: {
-    consumerKey: process.env.TWITTER_KEY || '6NNBDyJ2TavL407A3lWxPFKBI',
-    consumerSecret: process.env.TWITTER_SECRET  || 'ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa',
-    callbackURL: '/auth/twitter/callback',
-    passReqToCallback: true
-  }
+  weibo: {
+    clientID: 'app key'
+  , clientSecret: 'app secret'
+  , callbackURL: 'http://127.0.0.1:3000/auth/weibo/callback'
+  , passReqToCallback: true
+//  , requireState: true // for csrf, default: true
+//  , scope: ['statuses_to_me_read'
+//          , 'follow_app_official_microblog']
+}
 };

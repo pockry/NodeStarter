@@ -5,12 +5,12 @@
  *
  * 下面的初始化信息如需用于生产环境，请务必修改后使用。
  *
- * Untrack secrets.js before pushing your code to public GitHub repository:
+ * 如需推送到公开仓库，请用下述命令移除本文件的提交:
  *
  * git rm --cached config/secrets.js
  *
- * If you have already commited this file to GitHub with your keys, then
- * refer to https://help.github.com/articles/remove-sensitive-data
+ * 如果你已经将包含你的密钥和令牌的本文件提交到Github上，请参考下述链接移除
+ * https://help.github.com/articles/remove-sensitive-data
 */
 
 module.exports = {
@@ -34,8 +34,8 @@ module.exports = {
   , clientSecret: 'app secret'
   , callbackURL: 'http://127.0.0.1:3000/auth/weibo/callback'
   , passReqToCallback: true
-//  , requireState: true // for csrf, default: true
-//  , scope: ['statuses_to_me_read'
-//          , 'follow_app_official_microblog']
-}
+  //  , requireState: true // for csrf, default: true
+  //  , scope: ['statuses_to_me_read'
+  //          , 'follow_app_official_microblog']
+  }
 };

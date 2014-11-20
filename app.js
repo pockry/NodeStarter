@@ -85,7 +85,7 @@ app.use(passport.session());
 app.use(flash());
 app.use(function(req, res, next) {
   // CSRF protection.
-  if (_.contains(csrfExclude, req.path)) return next();
+  if (_.contains(csrfExclude, req.path)) {return next();}
   csrf(req, res, next);
 });
 app.use(function(req, res, next) {
@@ -129,9 +129,11 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  */
 
 app.get('/auth/weibo', passport.authenticate('sina'));
-app.get('/auth/weibo/callback', passport.authenticate('sina', { failureRedirect:'/login',failureFlash: "授权失败，请重新登录。"}), function(req, res) {
-  res.redirect(req.session.returnTo || '/');
-});
+app.get('/auth/weibo/callback', 
+  passport.authenticate('sina', { failureRedirect:'/login',failureFlash: '授权失败，请重新登录。'}), function(req, res) {
+    res.redirect(req.session.returnTo || '/');
+  }
+);
 
 /**
  * 500 Error Handler.

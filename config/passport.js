@@ -19,7 +19,9 @@ passport.deserializeUser(function(id, done) {
 
 passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
   User.findOne({ email: email }, function(err, user) {
-    if (!user) return done(null, false, { message: '邮箱 ' + email + ' 未注册'});
+    if (!user) {
+      return done(null, false, { message: '邮箱 ' + email + ' 未注册'});
+    }
     user.comparePassword(password, function(err, isMatch) {
       if (isMatch) {
         return done(null, user);
@@ -52,11 +54,11 @@ passport.use(new WeiboStrategy(secrets.weibo, function(req, accessToken, refresh
     
     // verify
     User.findOne({weibo: profile.id}, function(err, user) {
-      if(err) return done(err);
+      if(err) {return done(err);}
     	if(user) {
     		//如有该用户则直接登录
     		for(var i=0;i< user.thirdParty.length;i++) {
-    			if(user.thirdParty[i].provider === "weibo") {
+    			if(user.thirdParty[i].provider === 'weibo') {
     				user.thirdParty[i].accessToken = accessToken;
     			}
     		}
@@ -67,7 +69,7 @@ passport.use(new WeiboStrategy(secrets.weibo, function(req, accessToken, refresh
     	} else {
     		// 若无该用户则创建用户
     		user = new User();
-        user.email = profile.name + "@weibo.com";
+        user.email = profile.name + '@weibo.com';
     		user.weibo = profile.id;
         user.profile.name = profile.name;
         user.profile.picture = profile.profile_image_url;
@@ -85,7 +87,7 @@ passport.use(new WeiboStrategy(secrets.weibo, function(req, accessToken, refresh
 // Login Required middleware.
 
 exports.isAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) return next();
+  if (req.isAuthenticated()) {return next();}
   res.redirect('/login');
 };
 

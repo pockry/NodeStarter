@@ -12,7 +12,7 @@ var secrets = require('../config/secrets');
  */
 
 exports.getLogin = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (req.user) {return res.redirect('/');}
   res.render('account/login', {
     title: '登录'
   });
@@ -37,13 +37,13 @@ exports.postLogin = function(req, res, next) {
   }
 
   passport.authenticate('local', function(err, user, info) {
-    if (err) return next(err);
+    if (err) {return next(err);}
     if (!user) {
       req.flash('errors', { msg: info.message });
       return res.redirect('/login');
     }
     req.logIn(user, function(err) {
-      if (err) return next(err);
+      if (err) {return next(err);}
       req.flash('success', { msg: '登录成功！' });
       res.redirect(req.session.returnTo || '/');
     });
@@ -66,7 +66,7 @@ exports.logout = function(req, res) {
  */
 
 exports.getSignup = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (req.user) {return res.redirect('/');}
   res.render('account/signup', {
     title: '注册'
   });
@@ -102,9 +102,9 @@ exports.postSignup = function(req, res, next) {
       return res.redirect('/signup');
     }
     user.save(function(err) {
-      if (err) return next(err);
+      if (err) {return next(err);}
       req.logIn(user, function(err) {
-        if (err) return next(err);
+        if (err) {return next(err);}
         res.redirect('/');
       });
     });
@@ -129,7 +129,7 @@ exports.getAccount = function(req, res) {
 
 exports.postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
-    if (err) return next(err);
+    if (err) {return next(err);}
     user.email = req.body.email || '';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
@@ -137,7 +137,7 @@ exports.postUpdateProfile = function(req, res, next) {
     user.profile.website = req.body.website || '';
 
     user.save(function(err) {
-      if (err) return next(err);
+      if (err) {return next(err);}
       req.flash('success', { msg: '账号资料更新成功。' });
       res.redirect('/account');
     });
@@ -162,12 +162,12 @@ exports.postUpdatePassword = function(req, res, next) {
   }
 
   User.findById(req.user.id, function(err, user) {
-    if (err) return next(err);
+    if (err) {return next(err);}
 
     user.password = req.body.password;
 
     user.save(function(err) {
-      if (err) return next(err);
+      if (err) {return next(err);}
       req.flash('success', { msg: '密码修改成功。' });
       res.redirect('/account');
     });
@@ -181,7 +181,7 @@ exports.postUpdatePassword = function(req, res, next) {
 
 exports.postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
-    if (err) return next(err);
+    if (err) {return next(err);}
     req.logout();
     req.flash('info', { msg: '你的账号已被删除。' });
     res.redirect('/');
@@ -197,13 +197,13 @@ exports.postDeleteAccount = function(req, res, next) {
 exports.getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
   User.findById(req.user.id, function(err, user) {
-    if (err) return next(err);
+    if (err) {return next(err);}
 
     user[provider] = undefined;
     user.tokens = _.reject(user.tokens, function(token) { return token.kind === provider; });
 
     user.save(function(err) {
-      if (err) return next(err);
+      if (err) {return next(err);}
       req.flash('info', { msg: provider + ' 账号已解除绑定。' });
       res.redirect('/account');
     });
@@ -266,7 +266,7 @@ exports.postReset = function(req, res, next) {
           user.resetPasswordExpires = undefined;
 
           user.save(function(err) {
-            if (err) return next(err);
+            if (err) {return next(err);}
             req.logIn(user, function(err) {
               done(err, user);
             });
@@ -294,7 +294,7 @@ exports.postReset = function(req, res, next) {
       });
     }
   ], function(err) {
-    if (err) return next(err);
+    if (err) {return next(err);}
     res.redirect('/');
   });
 };
@@ -374,7 +374,7 @@ exports.postForgot = function(req, res, next) {
       });
     }
   ], function(err) {
-    if (err) return next(err);
+    if (err) {return next(err);}
     res.redirect('/forgot');
   });
 };

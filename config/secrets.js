@@ -9,7 +9,7 @@
  *
  * git rm --cached config/secrets.js
  *
- * 如果你已经将包含你的密钥和令牌的本文件提交到Github上，请参考下述链接移除
+ * 如果你已经将包含你的账号和密钥的本文件提交到Github上，请参考下述链接移除
  * https://help.github.com/articles/remove-sensitive-data
 */
 

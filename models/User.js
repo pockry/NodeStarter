@@ -12,6 +12,8 @@ var userSchema = new mongoose.Schema({
     accessToken: { type: String, default: '' },
     tokenSecret: { type: String, default: '' }
   }],
+  
+  group: { type: String, default: 'member' }, //superadmin, admin, member
 
   profile: {
     name: { type: String, default: '' },

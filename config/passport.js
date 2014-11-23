@@ -102,3 +102,20 @@ exports.isAuthorized = function(req, res, next) {
     res.redirect('/auth/' + provider);
   }
 };
+
+exports.isSuperAdmin = function(req, res, next) {
+	if (req.user && req.user.group === "superadmin") {
+		next();
+	} else {
+		res.redirect('/');
+	}
+};
+
+exports.isAdmin = function(req, res, next) {
+	if (req.user) {
+		if (req.user.group === "superadmin" || req.user.group === "admin")
+		next();
+	} else {
+		res.redirect('/');
+	}
+};

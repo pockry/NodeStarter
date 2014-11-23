@@ -27,7 +27,7 @@ var connectAssets = require('connect-assets');
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
-
+var adminController = require('./controllers/admin');
 /**
  * API keys and Passport configuration.
  */
@@ -123,6 +123,7 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+app.get('/admin/index', passportConf.isAuthenticated, passportConf.isAdmin, adminController.getAdminIndex);
 
 /**
  * OAuth sign-in routes.

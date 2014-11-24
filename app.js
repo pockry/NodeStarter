@@ -142,6 +142,13 @@ app.get('/auth/weibo/callback',
 
 app.use(errorHandler());
 
+app.get("*", function(req, res){
+    res.status(404).render('404', {
+        title: '404',
+        content: '打开的方式不对！'
+    });
+});
+
 /**
  * Start Express server.
  */

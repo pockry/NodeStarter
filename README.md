@@ -118,8 +118,8 @@ working
 
 这里列出对项目有用的一些教程。
 
-* Node School
-* Node包教不包会
+* [Node School](http://nodeschool.io/)
+* [Node包教不包会](https://github.com/alsotang/node-lessons)
 
 部署
 ----------
